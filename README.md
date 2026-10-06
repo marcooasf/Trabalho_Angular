@@ -1,63 +1,74 @@
-<<<<<<< HEAD
 # Sonar
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+*Quanto mais profundo, mais pesado.*
 
-## Development server
+Loja de instrumentos para música pesada, organizada por profundidade. Na superfície ficam os timbres limpos e brilhantes. Conforme a página desce, o fundo escurece e os instrumentos ficam mais graves, até a zona abissal.
 
-To start a local development server, run:
+Projeto da disciplina, tema "Da capa para a tela". A capa de partida, o conceito e a ligação com o site estão no [CONCEITO.md](CONCEITO.md).
+
+- Moodboard: [docs/moodboard.png](docs/moodboard.png)
+- Identidade visual: [docs/identidade-visual.png](docs/identidade-visual.png)
+
+## Como rodar
+
+O projeto tem duas partes: a API, que fornece os instrumentos, e o site em Angular. A API precisa estar rodando antes do site.
+
+### 1. API (C# / .NET 8 + PostgreSQL)
+
+Repositório: https://github.com/marcooasf/ProdutosApi/tree/Sonar (branch `Sonar`)
+
+Com o PostgreSQL rodando em `localhost:5432`. Antes de rodar, abra o arquivo `appsettings.json` e ajuste o usuário e a senha na linha `ConnectionStrings: Postgres` para os do seu PostgreSQL.
 
 ```bash
+dotnet restore
+dotnet run
+```
+
+Na primeira execução ela cria o banco `produtosdb` e insere os 12 instrumentos. A API sobe em `http://localhost:5099` e o Swagger fica em `http://localhost:5099/swagger`.
+
+Se o banco `produtosdb` já existir de uma versão antiga do projeto, apague ele antes, para que seja recriado com os campos novos.
+
+### 2. Site (Angular 22)
+
+```bash
+cd sonar
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abra `http://localhost:4200`.
 
-## Code scaffolding
+## Sobre a API
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+O enunciado sugere APIs públicas prontas, mas nenhuma delas tem instrumentos musicais com os dados de que o conceito precisa (zona, profundidade e timbre). Por isso o site consome uma API própria, feita a partir do projeto ProdutosApi usado em aula. Ela roda localmente.
 
-```bash
-ng generate component component-name
-```
+Endpoints usados:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| Endpoint | Uso no site |
+|---|---|
+| `GET /api/produtos/publico?pageSize=50` | lista da home, ordenada por profundidade |
+| `GET /api/produtos/{id}` | página de detalhe |
 
-```bash
-ng generate --help
-```
+## Onde está cada requisito
 
-## Building
+| Requisito | Onde ver |
+|---|---|
+| 3 rotas com menu e destaque da página atual | `app.routes.ts` e o cabeçalho (`routerLinkActive`) |
+| Rota com parâmetro | `/instrumento/:id`, em `pages/detalhe` |
+| Rota `**` no tema | `pages/nao-encontrada` |
+| Componentes com `input()` | `card-instrumento` e `medidor-timbre` |
+| Componente com `output()` | `card-instrumento` avisa a home ao clicar em Adicionar |
+| `@if`, `@for` com `track` e `@empty` | `home.html` e `carrinho.html` |
+| Signals | busca, índice do destaque, menu aberto, itens do carrinho, lista da API |
+| Computed | `destaque`, `filtrados` e `porZona` na home; `quantidade`, `total` e `profundidadeMaxima` no carrinho |
+| Serviço com `inject()` e HttpClient | `services/instrumento.service.ts` |
+| Carregando e erro na tela | home e detalhe |
+| Formulário com validação | `pages/suporte` (formulário reativo) |
+| Tailwind com as cores da identidade | bloco `@theme` em `src/styles.css` |
+| CSS próprio | degradê da descida em `pages/home/home.css` |
 
-To build the project run:
+## Créditos
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# Trabalho_Angular
->>>>>>> e04d39bd2f0da8b1be06d0cf134602db8713325a
+- Fontes: Signatra (uso pessoal) no nome do site e Montserrat (Google Fonts) no restante.
+- As fotos dos instrumentos são usadas apenas para fins acadêmicos.
+- A imagem da capa do álbum não é usada na aplicação.
