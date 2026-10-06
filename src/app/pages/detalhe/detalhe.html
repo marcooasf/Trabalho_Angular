@@ -1,0 +1,30 @@
+<section class="mx-auto max-w-4xl px-6 py-10">
+  <a routerLink="/" class="text-destaque underline">Voltar para a superfície</a>
+
+  @if (carregando()) {
+    <p class="mt-6">Sondando as profundezas...</p>
+  } @else if (erro()) {
+    <p class="mt-6 text-erro">Não encontramos este instrumento. Ele pode ter afundado demais.</p>
+  } @else {
+    @if (instrumento(); as item) {
+      <div class="mt-6 grid gap-8 md:grid-cols-[auto_1fr]">
+        <img [src]="imagemDe(item)" [alt]="item.nome" class="mx-auto h-96 object-contain" />
+        <div class="flex flex-col gap-4">
+          <p class="text-sm uppercase tracking-wide text-apoio">{{ item.tipo }}</p>
+          <h1 class="text-4xl font-semibold">{{ item.nome }}</h1>
+          <p class="rounded-xl bg-destaque px-4 py-2 font-semibold uppercase text-abissal">
+            Zona {{ item.zona }} · {{ item.profundidade }}m
+          </p>
+          <app-medidor-timbre [nivel]="item.timbre" />
+          <p>{{ item.descricao }}</p>
+          <p class="text-sm text-apoio">{{ item.estoque }} em estoque</p>
+          <p class="text-3xl font-semibold">{{ item.preco | currency: 'BRL' }}</p>
+          <button type="button" (click)="carrinho.adicionar(item)"
+                  class="self-start rounded-xl bg-destaque px-6 py-3 font-semibold text-abissal">
+            Adicionar ao carrinho
+          </button>
+        </div>
+      </div>
+    }
+  }
+</section>

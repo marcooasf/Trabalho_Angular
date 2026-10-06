@@ -1,3 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
 
-@import 'tailwindcss';
+@theme {
+  --color-superficie: #42C7FF;
+  --color-iluminada: #004851;
+  --color-crepuscular: #002A4B;
+  --color-abissal: #0C1D2D;
+  --color-destaque: #89CECA;
+  --color-apoio: #B3DBDA;
+  --color-erro: #E5677E;
+  --color-sucesso: #4FBF8B;
+
+  --font-sans: "Montserrat", sans-serif;
+  --font-logo: "Signatra", cursive;
+}
+
+@font-face {
+  font-family: "Signatra";
+  src: url("/fonts/Signatra.ttf") format("truetype");
+}
+
+body {
+  background: #0C1D2D;
+  color: #FFFFFF;
+}

@@ -1,0 +1,39 @@
+<section class="mx-auto max-w-xl px-6 py-10">
+  <h1 class="text-3xl font-semibold">Suporte</h1>
+  <p class="mt-2">Perdeu o sinal? Manda uma mensagem pra gente.</p>
+
+  @if (enviado()) {
+    <p class="mt-6 rounded-xl border border-sucesso p-4 text-sucesso">Mensagem enviada. Sinal recebido!</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="enviar()" class="mt-6 flex flex-col gap-4">
+    <label class="flex flex-col gap-1">
+      Nome
+      <input formControlName="nome" class="rounded-xl bg-white px-4 py-3 text-abissal" />
+      @if (form.controls.nome.touched && form.controls.nome.invalid) {
+        <span class="text-sm text-erro">Informe seu nome, com pelo menos 3 letras.</span>
+      }
+    </label>
+
+    <label class="flex flex-col gap-1">
+      E-mail
+      <input type="email" formControlName="email" class="rounded-xl bg-white px-4 py-3 text-abissal" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <span class="text-sm text-erro">Informe um e-mail válido.</span>
+      }
+    </label>
+
+    <label class="flex flex-col gap-1">
+      Mensagem
+      <textarea formControlName="mensagem" rows="5" class="rounded-xl bg-white px-4 py-3 text-abissal"></textarea>
+      @if (form.controls.mensagem.touched && form.controls.mensagem.invalid) {
+        <span class="text-sm text-erro">Escreva pelo menos 10 caracteres.</span>
+      }
+    </label>
+
+    <button type="submit" [disabled]="form.invalid"
+            class="rounded-xl bg-destaque px-6 py-3 font-semibold text-abissal disabled:cursor-not-allowed disabled:opacity-40">
+      Enviar
+    </button>
+  </form>
+</section>

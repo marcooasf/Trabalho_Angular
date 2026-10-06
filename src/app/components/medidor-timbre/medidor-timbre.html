@@ -1,0 +1,8 @@
+<div class="flex items-center gap-2 text-xs uppercase tracking-wide">
+  <span>Brilhante</span>
+  @for (ponto of pontos; track ponto) {
+    <span class="h-2.5 w-2.5 rounded-full"
+          [class]="ponto <= nivel() ? 'bg-destaque' : 'bg-white/25'"></span>
+  }
+  <span>Grave</span>
+</div>

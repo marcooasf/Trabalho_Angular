@@ -1,0 +1,30 @@
+<section class="mx-auto max-w-3xl px-6 py-10">
+  <h1 class="text-3xl font-semibold">Seu carrinho</h1>
+
+  <ul class="mt-6 flex flex-col gap-4">
+    @for (item of carrinho.itens(); track $index) {
+      <li class="flex flex-wrap items-center gap-4 rounded-xl border border-white/20 bg-crepuscular p-4">
+        <img [src]="imagemDe(item)" [alt]="item.nome" class="h-20 w-14 object-contain" />
+        <div class="flex-1">
+          <p class="font-semibold">{{ item.nome }}</p>
+          <p class="text-sm text-apoio">Zona {{ item.zona }} · {{ item.profundidade }}m</p>
+        </div>
+        <p class="font-semibold">{{ item.preco | currency: 'BRL' }}</p>
+        <button type="button" (click)="carrinho.remover($index)"
+                class="rounded-xl border border-erro px-3 py-1 text-erro">Remover</button>
+      </li>
+    } @empty {
+      <li class="rounded-xl border border-white/20 p-6">
+        <p>Seu carrinho ainda está na superfície, vazio.</p>
+        <a routerLink="/" class="mt-3 inline-block text-destaque underline">Ver instrumentos</a>
+      </li>
+    }
+  </ul>
+
+  @if (carrinho.quantidade() > 0) {
+    <div class="mt-8 rounded-xl bg-crepuscular p-6">
+      <p>{{ carrinho.quantidade() }} itens · seu setup desce até {{ carrinho.profundidadeMaxima() }}m</p>
+      <p class="mt-2 text-3xl font-semibold">Total: {{ carrinho.total() | currency: 'BRL' }}</p>
+    </div>
+  }
+</section>

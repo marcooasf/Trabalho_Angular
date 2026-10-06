@@ -1,0 +1,10 @@
+.descida {
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #42c7ff 0,
+    #004851 70vh,
+    #002a4b 55%,
+    #0c1d2d 100%
+  );
+}
